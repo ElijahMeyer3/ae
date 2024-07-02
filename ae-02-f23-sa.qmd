@@ -1,0 +1,148 @@
+---
+title: "Intro to R + Data Visualization - Suggested Answers"
+---
+
+For this ae, we'll use the **tidyverse** and **palmerpenguins** packages.
+
+## Packages
+
+```{r}
+#| label: load-packages
+#| warning: true 
+
+library(tidyverse)
+library(palmerpenguins) #The data set name is penguins
+```
+
+What are the `#|` above?
+
+*code chunk arguments*
+
+Which ones will we use during the semester? State and define them below.
+
+message; turns of messages from output
+
+warning; turns of warnings from output
+
+eval; makes code chunk not run in the rendered output
+
+echo; makes code not appear in rendered output
+
+## Data
+
+The dataset we will visualize is called `penguins`. Let's `glimpse()` at it.
+
+```{r}
+#| label: glimpse
+
+glimpse(penguins)
+
+```
+
+Now, *pipe* the `penguins` data into the glimpse function to produce the same result.
+
+```{r}
+#| label: glimpse2
+
+penguins |>
+  glimpse()
+
+```
+
+What types of variables are we working with in this data set?
+
+fct - factor - categorical int - integer - quantitative dbl - double - quantitative
+
+**variables we don't see include: chr - character = words = categorical**
+
+**log = logical = true/false = categorical**
+
+# Visualizing penguin weights - Demo
+
+## Useful links:
+
+https://ggplot2.tidyverse.org/reference/
+
+## Single variable
+
+::: callout-note
+Analyzing the a single variable is called **univariate** analysis.
+:::
+
+Create visualizations of the distribution of `weight`s of penguins.
+
+1.  Make a histogram by filling in the `...` with the appropriate arguments. Set an appropriate binwidth. Hint: you can run `names(data.set)` in your console if you need a quick reminder on the variable names.
+
+```{r}
+#| label: histogram-weight
+
+
+penguins |>
+  ggplot( 
+       aes(x = body_mass_g)) + #type variable name here
+       geom_histogram() #type geom here
+
+```
+
+2.  Now, make a boxplot of `weight`s of penguins.
+
+```{r}
+#| label: boxplot-weight
+
+penguins |>
+  ggplot(
+    aes(x = body_mass_g)
+  ) + 
+  geom_boxplot()
+
+```
+
+3.  Add a theme to your boxplot!
+
+https://ggplot2.tidyverse.org/reference/ggtheme.html
+
+```{r}
+#| label: theme
+#| eval: false
+
+penguins |>
+  ggplot(
+    aes(x = body_mass_g)) + 
+    geom_boxplot() + 
+    theme_minimal() # type theme here
+
+```
+
+Why can / should we use themes?
+
+**Looks nicer + can be more professional**
+
+## Two variables
+
+::: callout-note
+Analyzing the relationship between two variables is called **bivariate** analysis.
+:::
+
+Create visualizations of the distribution of `weight`s of penguins by `species`. Note: `aes`thetic is a visual property of one of the objects in your plot. Aesthetic options are:
+
+-   shape
+-   color
+-   size
+-   fill
+
+4.  Make a histogram of penguins' weight where the bars are colored in by species type. Set an appropriate binwidth and alpha value. At the same time, comment each line of code to articulate what it's doing.
+
+```{r}
+#| label: histogram-weight-species
+#| eval: false
+
+penguins |>
+  ggplot( 
+       aes(x = body_mass_g, size = species )) +
+       geom_histogram(binwidth = 200, alpha = .5)
+
+```
+
+What happens when we change color to fill?
+
+**When we make this change, it goes from outlining the objects to coloring them in.**
